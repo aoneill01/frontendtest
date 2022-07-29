@@ -20,6 +20,7 @@ for (let rankIndex = 0; rankIndex < 8; rankIndex++) {
       :class="['square', color]"
       :data-file="file"
       :data-rank="rank"
+      @click="$emit('square-click', { file, rank })"
     ></div>
   </div>
 </template>
@@ -36,6 +37,7 @@ for (let rankIndex = 0; rankIndex < 8; rankIndex++) {
 
 .square {
   position: relative;
+  cursor: pointer;
 }
 
 .square.dark {

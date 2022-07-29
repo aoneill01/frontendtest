@@ -1,14 +1,30 @@
-<script setup></script>
+<script setup>
+const props = defineProps(["history"]);
+</script>
 
 <template>
-  <nav>Selected Squares</nav>
+  <nav>
+    <h2>Selected Squares</h2>
+    <ol>
+      <li v-for="(square, i) in props.history" :key="i">
+        {{ square.file }}{{ square.rank }}
+      </li>
+    </ol>
+  </nav>
 </template>
 
 <style scoped>
 nav {
-  width: 200px;
+  min-width: 200px;
   background-color: var(--color-background-alt);
   border-radius: 5px;
   padding: 8px 16px;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 8px;
+  text-align: center;
 }
 </style>
