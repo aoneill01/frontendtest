@@ -151,4 +151,14 @@ for (let rankIndex = 0; rankIndex < 8; rankIndex++) {
   grid-column-start: 8;
   grid-column-end: 9;
 }
+
+@media (max-width: 600px) {
+  .square[data-file="a"]::before {
+    content: none;
+  }
+
+  .square[data-rank="1"]::after {
+    content: none;
+  }
+}
 </style>

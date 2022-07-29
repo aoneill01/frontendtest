@@ -26,9 +26,10 @@ h1 {
 }
 
 main {
-  margin: 16px 16px 0 16px;
+  margin: 16px;
   display: flex;
   min-height: calc(100vh - 32px);
+  min-height: calc(100dvh - 32px);
   gap: 16px;
 }
 
@@ -38,6 +39,17 @@ main > *:first-child {
 
 .board {
   max-width: calc(100vh - 32px);
+  max-width: calc(100dvh - 32px);
   margin: 0 auto;
+}
+
+@media (max-width: 480px) {
+  main {
+    flex-direction: column;
+  }
+
+  main > *:first-child {
+    flex-grow: 0;
+  }
 }
 </style>

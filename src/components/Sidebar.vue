@@ -27,4 +27,19 @@ h2 {
   margin-bottom: 8px;
   text-align: center;
 }
+
+li::marker {
+  color: hsla(0, 0%, 100%, 0.4);
+}
+
+@media (max-width: 480px) {
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  ol > li {
+    margin-right: 36px;
+    width: 30px;
+  }
+}
 </style>
