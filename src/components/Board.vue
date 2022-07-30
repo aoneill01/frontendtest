@@ -1,4 +1,8 @@
 <script setup>
+import { ref } from "vue";
+
+const emit = defineEmits(["square-click"]);
+
 const squares = [];
 
 for (let rankIndex = 0; rankIndex < 8; rankIndex++) {
@@ -10,17 +14,33 @@ for (let rankIndex = 0; rankIndex < 8; rankIndex++) {
     });
   }
 }
+
+const lastSelected = ref({});
+
+const onClick = (square) => {
+  emit("square-click", { file: square.file, rank: square.rank });
+  lastSelected.value = square;
+};
+
+const isSelected = ({ rank, file }) =>
+  rank === lastSelected.value.rank && file === lastSelected.value.file;
 </script>
 
 <template>
   <div class="board">
     <div
-      v-for="{ file, rank, color } in squares"
-      :key="file + rank"
-      :class="['square', color]"
-      :data-file="file"
-      :data-rank="rank"
-      @click="$emit('square-click', { file, rank })"
+      v-for="square in squares"
+      :key="square.file + square.rank"
+      :class="[
+        'square',
+        square.color,
+        {
+          selected: isSelected(square),
+        },
+      ]"
+      :data-file="square.file"
+      :data-rank="square.rank"
+      @click="() => onClick(square)"
     ></div>
   </div>
 </template>
@@ -33,11 +53,13 @@ for (let rankIndex = 0; rankIndex < 8; rankIndex++) {
   grid-template-rows: repeat(8, 1fr);
   border-radius: 1%;
   overflow: hidden;
+  background-color: orangered;
 }
 
 .square {
   position: relative;
   cursor: pointer;
+  transition: opacity 0.4s;
 }
 
 .square.dark {
@@ -56,6 +78,10 @@ for (let rankIndex = 0; rankIndex < 8; rankIndex++) {
 .square.dark::before,
 .square.dark::after {
   color: var(--color-light-square);
+}
+
+.square.selected {
+  opacity: 0.5;
 }
 
 .square[data-rank="1"] {
