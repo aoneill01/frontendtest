@@ -1,7 +1,9 @@
 <script setup>
 import { ref } from "vue";
+import Arrow from "./Arrow.vue";
 
 const emit = defineEmits(["square-click"]);
+const props = defineProps(["history"]);
 
 const squares = [];
 
@@ -42,6 +44,7 @@ const isSelected = ({ rank, file }) =>
       :data-rank="square.rank"
       @click="() => onClick(square)"
     ></div>
+    <Arrow class="arrow" :history="props.history" />
   </div>
 </template>
 
@@ -176,6 +179,13 @@ const isSelected = ({ rank, file }) =>
 .square[data-file="h"] {
   grid-column-start: 8;
   grid-column-end: 9;
+}
+
+.arrow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 @media (max-width: 600px) {

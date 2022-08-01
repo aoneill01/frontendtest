@@ -14,7 +14,7 @@ const handleClick = (square) => {
   <h1>Chessboard</h1>
   <main>
     <div>
-      <Board class="board" @square-click="handleClick" />
+      <Board class="board" @square-click="handleClick" :history="history" />
     </div>
     <Sidebar :history="history" />
   </main>
