@@ -1,7 +1,7 @@
 <script setup>
-import { computed } from "@vue/reactivity";
+import { computed } from "vue";
 
-const props = defineProps(["history"]);
+const props = defineProps(["from", "to"]);
 
 const location = (start, distance, angle) => ({
   x: distance * Math.cos(angle) + start.x,
@@ -16,12 +16,11 @@ const toLocalSpace = ({ rank, file }) => ({
 });
 
 const calculateD = () => {
+  if (!props.from || !props.to) return "";
+
   const thickness = 0.18;
-
-  if (props.history?.length <= 1) return "";
-
-  const start = toLocalSpace(props.history[props.history.length - 2]);
-  const end = toLocalSpace(props.history[props.history.length - 1]);
+  const start = toLocalSpace(props.from);
+  const end = toLocalSpace(props.to);
 
   if (start.x === end.x && start.y === end.y) return "";
 

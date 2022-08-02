@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { computed } from "vue";
 import Arrow from "./Arrow.vue";
 
 const emit = defineEmits(["square-click"]);
@@ -17,15 +17,15 @@ for (let rankIndex = 0; rankIndex < 8; rankIndex++) {
   }
 }
 
-const lastSelected = ref({});
+const lastSelected = computed(() => props.history.at(-1));
+const nextToLastSelected = computed(() => props.history.at(-2));
 
 const onClick = (square) => {
   emit("square-click", { file: square.file, rank: square.rank });
-  lastSelected.value = square;
 };
 
 const isSelected = ({ rank, file }) =>
-  rank === lastSelected.value.rank && file === lastSelected.value.file;
+  rank === lastSelected.value?.rank && file === lastSelected.value?.file;
 </script>
 
 <template>
@@ -44,7 +44,7 @@ const isSelected = ({ rank, file }) =>
       :data-rank="square.rank"
       @click="() => onClick(square)"
     ></div>
-    <Arrow class="arrow" :history="props.history" />
+    <Arrow class="arrow" :from="nextToLastSelected" :to="lastSelected" />
   </div>
 </template>
 
